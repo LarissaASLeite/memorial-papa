@@ -9,6 +9,9 @@ if (isGithubActions && process.env.GITHUB_REPOSITORY) {
 const nextConfig: NextConfig = {
   basePath: isGithubActions ? `/${repo}` : '',
   assetPrefix: isGithubActions ? `/${repo}/` : '',
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGithubActions ? `/${repo}` : '',
+  },
   
   // Allow Next.js Image component to serve local public/ images
   images: {

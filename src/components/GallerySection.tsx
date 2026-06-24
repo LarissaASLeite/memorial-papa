@@ -4,18 +4,31 @@ import { useState } from "react";
 import { Camera, X, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useGallery } from "@/hooks/useGallery";
+import gal1 from "../../public/gallery_1.png";
 
 export default function GallerySection() {
   const { images, loading, error, seedImages } = useGallery();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
   const displayImages = !loading && !error && images.length > 0 
-    ? images.map(img => ({
-        ...img,
-        imageUrl: (typeof img.imageUrl === 'string' && (img.imageUrl.startsWith('/') || img.imageUrl.startsWith('http'))) || typeof img.imageUrl === 'object'
-          ? img.imageUrl 
-          : `/gallery_1.png` // Fallback for invalid URLs like "test"
-      }))
+    ? images.map(img => {
+        let finalUrl = img.imageUrl;
+        if (typeof img.imageUrl === 'string') {
+          if (img.imageUrl.startsWith('http')) {
+            finalUrl = img.imageUrl;
+          } else if (img.imageUrl.startsWith('/')) {
+            finalUrl = `${basePath}${img.imageUrl}`;
+          } else {
+            finalUrl = gal1;
+          }
+        }
+        return {
+          ...img,
+          imageUrl: finalUrl
+        };
+      })
     : seedImages;
 
   const closeLightbox = () => setLightboxIndex(null);

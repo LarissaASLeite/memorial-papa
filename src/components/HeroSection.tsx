@@ -40,7 +40,7 @@ export default function HeroSection() {
       <div className="profile-ring animate-float mb-8 animate-scale-in">
         <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full overflow-hidden bg-[var(--cream-dark)]">
           <Image
-            src="/memorial_profile.png"
+            src={profilePic}
             alt="Foto de José Marcos Melo Damasceno Junior"
             fill
             className="object-cover"
