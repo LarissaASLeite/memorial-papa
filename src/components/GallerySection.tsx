@@ -12,7 +12,7 @@ export default function GallerySection() {
   const displayImages = !loading && !error && images.length > 0 
     ? images.map(img => ({
         ...img,
-        imageUrl: (img.imageUrl?.startsWith('/') || img.imageUrl?.startsWith('http')) 
+        imageUrl: (typeof img.imageUrl === 'string' && (img.imageUrl.startsWith('/') || img.imageUrl.startsWith('http'))) || typeof img.imageUrl === 'object'
           ? img.imageUrl 
           : `/gallery_1.png` // Fallback for invalid URLs like "test"
       }))
