@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Heart } from "lucide-react";
+import profilePic from "../../public/memorial_profile.png";
 
 export default function HeroSection() {
   return (
