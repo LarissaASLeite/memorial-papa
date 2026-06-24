@@ -1,9 +1,18 @@
 import type { NextConfig } from "next";
 
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+let repo = "";
+if (isGithubActions && process.env.GITHUB_REPOSITORY) {
+  repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '');
+}
+
 const nextConfig: NextConfig = {
+  basePath: isGithubActions ? `/${repo}` : '',
+  assetPrefix: isGithubActions ? `/${repo}/` : '',
+  
   // Allow Next.js Image component to serve local public/ images
   images: {
-    unoptimized: false,
+    unoptimized: isGithubActions ? true : false,
     qualities: [75, 85, 100],
     remotePatterns: [
       {
