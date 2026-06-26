@@ -80,7 +80,7 @@ export default function HeroSection() {
         <span className="ornament">✦</span>
         &nbsp;17 de Julho, 1967&nbsp;&nbsp;
         <span style={{ color: "var(--stone-light)" }}>—</span>
-        &nbsp;&nbsp;†&nbsp;26 de Maio, 2026
+        &nbsp;&nbsp;†&nbsp;26 de Abril, 2026
       </p>
 
       {/* Memorial phrase */}
