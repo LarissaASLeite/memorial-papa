@@ -9,6 +9,7 @@ import gal1 from "../../public/gallery_1.png";
 export default function GallerySection() {
   const { images, loading, error, seedImages } = useGallery();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(9);
 
   const displayImages = !loading && !error && images.length > 0 
     ? images.map(img => {
@@ -26,6 +27,12 @@ export default function GallerySection() {
         };
       })
     : seedImages;
+
+  const visibleImages = displayImages.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 9);
+  };
 
   const closeLightbox = () => setLightboxIndex(null);
 
@@ -92,28 +99,48 @@ export default function GallerySection() {
               <Loader2 size={32} className="animate-spin" style={{ color: "var(--sage-light)" }} />
             </div>
           ) : (
-            <div className="gallery-grid">
-              {displayImages.map((img, idx) => (
-                <figure
-                  key={img.id}
-                  className="gallery-item animate-scale-in"
-                  style={{ animationDelay: `${idx * 0.08}s` }}
-                  title={img.caption || "Foto da galeria"}
-                  onClick={() => setLightboxIndex(idx)}
-                >
-                  <Image
-                    src={img.imageUrl}
-                    alt={img.caption || "Lembrança"}
-                    width={600}
-                    height={600}
-                    className="w-full h-auto"
-                    sizes="(max-width: 640px) 46vw, 30vw"
-                    quality={85}
-                  />
-                  <figcaption className="sr-only">{img.caption || "Lembrança"}</figcaption>
-                </figure>
-              ))}
-            </div>
+            <>
+              <div className="gallery-grid">
+                {visibleImages.map((img, idx) => (
+                  <figure
+                    key={img.id}
+                    className="gallery-item animate-scale-in"
+                    style={{ animationDelay: `${(idx % 9) * 0.08}s` }}
+                    title={img.caption || "Foto da galeria"}
+                    onClick={() => setLightboxIndex(idx)}
+                  >
+                    <Image
+                      src={img.imageUrl}
+                      alt={img.caption || "Lembrança"}
+                      width={600}
+                      height={600}
+                      className="w-full h-auto"
+                      sizes="(max-width: 640px) 46vw, 30vw"
+                      quality={85}
+                    />
+                    <figcaption className="sr-only">{img.caption || "Lembrança"}</figcaption>
+                  </figure>
+                ))}
+              </div>
+
+              {visibleCount < displayImages.length && (
+                <div className="mt-12 flex justify-center animate-fade-in">
+                  <button
+                    onClick={handleLoadMore}
+                    className="px-8 py-3 rounded-full text-sm uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg"
+                    style={{
+                      backgroundColor: "var(--sage)",
+                      color: "white",
+                      fontFamily: "var(--font-sans)",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--sage)")}
+                  >
+                    Ver mais fotos
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
 
