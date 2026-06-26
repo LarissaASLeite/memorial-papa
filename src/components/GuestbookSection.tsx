@@ -308,12 +308,13 @@ export default function GuestbookSection() {
             onSubmit={handleSubmit}
             id="form-homenagem"
             aria-label="Formulário de homenagem"
-            className="mb-10"
+            className="mb-12"
             style={{
               background: "#ffffff",
               border: "1px solid var(--parchment)",
               borderRadius: "1.5rem",
               padding: "1.75rem",
+              marginBottom: "3rem",
               boxShadow: "0 4px 24px -8px rgba(58, 51, 48, 0.1)",
             }}
           >
