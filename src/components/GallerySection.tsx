@@ -9,7 +9,7 @@ import gal1 from "../../public/gallery_1.png";
 export default function GallerySection() {
   const { images, loading, error, seedImages } = useGallery();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const displayImages = !loading && !error && images.length > 0 
     ? images.map(img => {
@@ -31,7 +31,7 @@ export default function GallerySection() {
   const visibleImages = displayImages.slice(0, visibleCount);
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 9);
+    setVisibleCount(prev => prev + 6);
   };
 
   const closeLightbox = () => setLightboxIndex(null);
@@ -105,7 +105,7 @@ export default function GallerySection() {
                   <figure
                     key={img.id}
                     className="gallery-item animate-scale-in"
-                    style={{ animationDelay: `${(idx % 9) * 0.08}s` }}
+                    style={{ animationDelay: `${(idx % 6) * 0.08}s` }}
                     title={img.caption || "Foto da galeria"}
                     onClick={() => setLightboxIndex(idx)}
                   >
