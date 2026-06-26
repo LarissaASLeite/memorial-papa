@@ -42,7 +42,7 @@ export default function Footer() {
           marginBottom: "1.5rem",
         }}
       >
-        17 JUL 1967 — 26 MAI 2026
+        17 JUL 1967 — 26 ABR 2026
       </p>
 
       {/* Heart */}
