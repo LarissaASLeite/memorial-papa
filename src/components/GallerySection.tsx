@@ -10,16 +10,12 @@ export default function GallerySection() {
   const { images, loading, error, seedImages } = useGallery();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
   const displayImages = !loading && !error && images.length > 0 
     ? images.map(img => {
         let finalUrl = img.imageUrl;
         if (typeof img.imageUrl === 'string') {
-          if (img.imageUrl.startsWith('http')) {
+          if (img.imageUrl.startsWith('http') || img.imageUrl.startsWith('/')) {
             finalUrl = img.imageUrl;
-          } else if (img.imageUrl.startsWith('/')) {
-            finalUrl = `${basePath}${img.imageUrl}`;
           } else {
             finalUrl = gal1;
           }
