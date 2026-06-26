@@ -34,6 +34,14 @@ export default function GallerySection() {
     setVisibleCount(prev => prev + 6);
   };
 
+  const handleShowLess = () => {
+    setVisibleCount(6);
+    const element = document.getElementById("galeria");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const closeLightbox = () => setLightboxIndex(null);
 
   const nextImage = (e: React.MouseEvent) => {
@@ -123,21 +131,43 @@ export default function GallerySection() {
                 ))}
               </div>
 
-              {visibleCount < displayImages.length && (
-                <div className="mt-12 flex justify-center animate-fade-in">
-                  <button
-                    onClick={handleLoadMore}
-                    className="px-8 py-3 rounded-full text-sm uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg"
-                    style={{
-                      backgroundColor: "var(--sage)",
-                      color: "white",
-                      fontFamily: "var(--font-sans)",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--gold)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--sage)")}
-                  >
-                    Ver mais fotos
-                  </button>
+              {(visibleCount < displayImages.length || visibleCount > 6) && (
+                <div className="mt-12 flex justify-center gap-4 animate-fade-in flex-wrap">
+                  {visibleCount > 6 && (
+                    <button
+                      onClick={handleShowLess}
+                      className="px-8 py-3 rounded-full text-sm uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg border-2"
+                      style={{
+                        borderColor: "var(--sage)",
+                        color: "var(--sage)",
+                        backgroundColor: "transparent",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "rgba(168,197,181,0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Ver menos
+                    </button>
+                  )}
+                  {visibleCount < displayImages.length && (
+                    <button
+                      onClick={handleLoadMore}
+                      className="px-8 py-3 rounded-full text-sm uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg"
+                      style={{
+                        backgroundColor: "var(--sage)",
+                        color: "white",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--gold)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--sage)")}
+                    >
+                      Ver mais fotos
+                    </button>
+                  )}
                 </div>
               )}
             </>
